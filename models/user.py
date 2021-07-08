@@ -4,14 +4,16 @@ import jwt
 from app import app, db, bcrypt
 
 class User(db.Model):
+    __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(80), nullable=False)
     lastname = db.Column(db.String(80), nullable=False)
-    age = db.Column(db.DateTime)
+    age = db.Column(db.Integer)
     email = db.Column(db.String(80), unique=True, nullable=False)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(200))
     admin = db.Column(db.Boolean, default=False)
+    appointments = db.relationship('Appointment', backref='user')
 
     def __init__(self, firstname, lastname, age, email, password, username, admin=False):
         self.firstname = firstname
@@ -19,7 +21,7 @@ class User(db.Model):
         self.age = age
         self.email = email
         self.password = bcrypt.generate_password_hash(
-            password, app.config.get('SECRET_KEY')
+            password, app.config.get('BCRYPT_LOG_ROUNDS')
         ).decode()
         self.username = username
         self.admin = admin
