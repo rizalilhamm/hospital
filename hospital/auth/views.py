@@ -42,17 +42,17 @@ def register(admin):
         flash('Pendaftaran Berhasil sebagai {}'.format(user_rule))
         return redirect(url_for('auth.admin_register'))
 
-@auth_bp.route('/admin/register', methods=['POST', 'GET'])
+@auth_bp.route('/admin/register/', methods=['POST', 'GET'])
 def admin_register():
     register(admin=True)
     return render_template('admin_register.html', title='Admin Register', user_type='ADMIN')
 
-@auth_bp.route('/patient/register', methods=['POST', 'GET'])
+@auth_bp.route('/patient/register/', methods=['POST', 'GET'])
 def patient_register():
     register(admin=False)
     return render_template('patient_register.html')
 
-@auth_bp.route('/login', methods=['POST', 'GET'])
+@auth_bp.route('/login/', methods=['POST', 'GET'])
 def login():
     if session.get('logged_in'):
         if session.get('user_rule'):
@@ -69,8 +69,12 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, password):
                 session['logged_in'] = True
-                session['user_rule'] = True
-                flash('Kamu berhasil login')
+                session['user_admin'] = False
+                message = 'Kamu berhasil login sebgai Patient!'
+                if user.admin:
+                    session['user_admin'] = True
+                    message = 'Kamu berhasil login sebagai Admin!'
+                flash(message)
                 return redirect(url_for('admin.docters'))
             flash('Password anda salah')
             return redirect(url_for('auth.login'))
