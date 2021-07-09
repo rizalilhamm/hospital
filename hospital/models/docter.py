@@ -1,5 +1,5 @@
 from sqlalchemy.orm import backref
-from app import app, db
+from hospital import db
 
 class Docter(db.Model):
     __tablename__ = 'docters'

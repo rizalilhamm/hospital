@@ -1,7 +1,7 @@
 import datetime
 import jwt
 
-from app import app, db, bcrypt
+from hospital import hospital, db, bcrypt
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -21,7 +21,7 @@ class User(db.Model):
         self.age = age
         self.email = email
         self.password = bcrypt.generate_password_hash(
-            password, app.config.get('BCRYPT_LOG_ROUNDS')
+            password, hospital.config.get('BCRYPT_LOG_ROUNDS')
         ).decode()
         self.username = username
         self.admin = admin
@@ -36,7 +36,7 @@ class User(db.Model):
             }
             return jwt.encode(
                 payload,
-                app.config.get('SECRET_KEY'),
+                hospital.config.get('SECRET_KEY'),
                 algorithm='HS256'
             )
         except Exception as e:
@@ -51,7 +51,7 @@ class User(db.Model):
                 Integer | String """
 
         try:
-            payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
+            payload = jwt.decode(auth_token, hospital.config.get('SECRET_KEY'))
             return payload
         except jwt.ExpiredSignatureError:
             return 'Invalid Signature'
