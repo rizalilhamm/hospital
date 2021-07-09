@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>
         {% block title %}
             {% if title %}
@@ -14,17 +15,26 @@
         {% endblock %}
     </title>
 </head>
-<body>
-    <p>Hospital Information</p>
-    <hr>
+<body class="container">
+    <ul>
+        <li class="headerlink">RS. Umum</li>
+        <li class="headerlink" id="authlink"><a href="">Contact us</a></li>
+        <li class="headerlink" id="authlink"><a href="">About us</a></li>
+        {% if session['logged_in'] == none %}
+            <li class="headerlink" id="authlink"><a href="/login">Login</a></li>
+            <li class="headerlink" id="authlink"><a href="/patient/register">Register</a></li>
+        {% else %}
+            <li class="headerlink" id="authlink"><a href="/logout">Logout</a></li>
+        {% endif %}
+    <ul>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class="list-unstyled">
-        <li>{{messages}}</li>
+        <li style="text-align: center;" >{{messages}}</li>
     </ul>
     {% endif %}
     {% endwith %}
-    {% block content %} {% endblock %}
-    <hr>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
