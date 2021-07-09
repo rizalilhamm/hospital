@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3><u>Available Docters</u></h3>
+    <ol>
+        {% for docter in docters %}
+            <li>{{ docter }} | <a href="/docters">See appointment</a></li>
+        {% endfor %}
+    </ol>
+{% endblock %}
