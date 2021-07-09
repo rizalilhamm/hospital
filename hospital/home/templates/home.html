@@ -12,8 +12,13 @@
         tidak perlu datang ke Rumah Sakit hanya untuk membuat perjanjian <br>
         Cukup Lakukan disini dan dapatkan jadwal janji anda! 
     </P>
-    <p>Silahkan login untuk masuk ke akun anda<a href=""> Login</a> <br>
-    Atau klik disini untuk mulai bergabung <a href=""> Register</a></p>
+    {% if session['logged_in'] == none %}
+        <p>Silahkan login untuk masuk ke akun anda<a href="/login"> Login</a> <br>
+        Atau klik disini untuk mulai bergabung <a href="/patient/register"> Patient Register</a> <br>
+        <p style="color: red;">Admin daftar disini <a href="/admin/register"> Admin Register</a></p></p>
+    {% else %}
+        <p>Check dokter yang tersedia<a href="/docters"> disini</a></p>
+    {% endif %}
 </div>
     
 {% endblock %}
