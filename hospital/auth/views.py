@@ -50,7 +50,7 @@ def admin_register():
 @auth_bp.route('/patient/register/', methods=['POST', 'GET'])
 def patient_register():
     register(admin=False)
-    return render_template('patient_register.html')
+    return render_template('patient_register.html', title='Register')
 
 @auth_bp.route('/login/', methods=['POST', 'GET'])
 def login():
@@ -81,7 +81,7 @@ def login():
         flash('Email tidak ditemukan')
         return redirect(url_for('auth.login'))
 
-    return render_template('login.html')
+    return render_template('login.html', title='Login')
 
 @auth_bp.route('/logout')
 def logout():
