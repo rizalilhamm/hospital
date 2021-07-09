@@ -2,11 +2,12 @@
 {% block content %}
     <div style="text-align: left;">
         {% if session['user_admin'] %}
-            <p>Create new Appointment</p>
+            <p>Buat Appointment baru</p>
             <form action="{{ url_for('admin.appointments', docter_id=docter.docter_id) }}" method="POST">
-                <input type="text" name="appointment_title" placeholder="Appointment Title"> <br>
-                <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Appointment Description"></textarea><br>
-                <input style="margin-top: 5px;" type="submit" value="Create">
+                <input type="text" name="appointment_title" placeholder="Judul Appointment"> <br>
+                <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Deskripsi Appointment"></textarea><br>
+                <input type="text" name="max_patient" placeholder="Pasien maksimal">
+                <input style="margin-top: 5px;" type="submit" value="Buat">
             </form>
         {% endif %}
         <h3><u>{{docter.name.upper()}}</u></h3>

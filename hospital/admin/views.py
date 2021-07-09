@@ -1,3 +1,4 @@
+from os import name
 from flask import Blueprint, render_template, request, flash, session
 from flask.helpers import url_for
 from werkzeug.utils import redirect
@@ -19,27 +20,38 @@ from hospital.models import Docter, Appointment
 def docters():
     """ Show all docters and provide a link to the available appointments """
     docters = Docter.query.all()
+    if request.method == 'POST':
+        docter_name = request.form['docter_name']
+        
+        if docter_name.strip() != '':
+            new_docter = Docter(name=docter_name)
+            db.session.add(new_docter)
+            db.session.commit()
+            flash('Dokter berhasil ditambahkan!')
+            return redirect(url_for('admin.docters'))
+        
+        flash('Nama dokter tidak boleh kosong!')
+        return redirect(url_for('admin.docters'))
+
     return render_template('all_docters.html', docters=docters)
 
 
 @admin_bp.route('/docters/<int:docter_id>/', methods=['GET', 'POST'])
 def appointments(docter_id):
-    """Show all partocular docter appointments from
-    param:
-        docter_id(int)
-    return:
-        all docter appoinment"""
+    """Show all partocular docter appointments from"""
     docter = Docter.query.get(docter_id)
     all_appointments = Appointment.query.filter_by(docter_id=docter_id).all()
     
     if request.method == 'POST' and session['user_admin']:
         appointment_title = request.form['appointment_title']
         appointment_desc = request.form['appointment_desc']
-        arguments = all([appointment_title, appointment_desc])
+        max_patient = request.form['max_patient']
+        arguments = all([appointment_title, appointment_desc, max_patient])
         if arguments:
             new_appointment = Appointment(
                 appointment_title=appointment_title, 
                 appointment_desc=appointment_desc,
+                max_patient=max_patient,
                 docter_id=docter_id)
         
             db.session.add(new_appointment)
@@ -65,10 +77,15 @@ def update_appointment(docter_id, appointment_title):
     docter = Docter.query.get(docter_id)
     appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
     if request.method == 'POST':
-        validate_diff = (appointment.appointment_title != request.form['appointment_title']) or (appointment.appointment_desc != request.form['appointment_desc'])
+        validate_diff = (
+                (appointment.appointment_title != request.form['appointment_title']) or 
+                (appointment.appointment_desc != request.form['appointment_desc']) or 
+                (appointment.max_patient != request.form['max_patient'])
+                )
         if validate_diff:
             appointment.appointment_title = request.form['appointment_title']
             appointment.appointment_desc = request.form['appointment_desc']
+            appointment.max_patient = request.form['max_patient']
         
             db.session.commit()
             flash('Perubahan berhasil disimpan!')
@@ -82,6 +99,7 @@ def update_appointment(docter_id, appointment_title):
 
 @admin_bp.route('/docters/<int:docter_id>/<int:appointment_id>/confirmation', methods=['GET', 'POST'])
 def confirm_delete(docter_id, appointment_id):
+    """Ask Admin before delete an appointment"""
     docter = Docter.query.get(docter_id)
     appointment = Appointment.query.get(appointment_id)
     if request.method == 'POST':
