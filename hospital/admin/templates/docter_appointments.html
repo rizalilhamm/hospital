@@ -9,7 +9,7 @@
                 <input style="margin-top: 5px;" type="submit" value="Create">
             </form>
         {% endif %}
-        <h3><u>{{docter.name}}</u></h3>
+        <h3><u>{{docter.name.upper()}}</u></h3>
         <div>
             {% if all_appointments|length > 0 %}
             <ol>
