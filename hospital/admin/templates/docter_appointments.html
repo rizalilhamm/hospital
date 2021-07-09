@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <div style="text-align: center;">
-        <p>Create new Appointment</p>
-        <form action="{{ url_for('admin.appointments', docter_id=docter.docter_id) }}" method="POST">
-            <input type="text" name="appointment_title" placeholder="Appointment Title"> <br>
-            <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Appointment Description"></textarea><br>
-            <input style="margin-top: 5px;" type="submit" value="Create">
-        </form>
+        {% if session['user_admin'] %}
+            <p>Create new Appointment</p>
+            <form action="{{ url_for('admin.appointments', docter_id=docter.docter_id) }}" method="POST">
+                <input type="text" name="appointment_title" placeholder="Appointment Title"> <br>
+                <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Appointment Description"></textarea><br>
+                <input style="margin-top: 5px;" type="submit" value="Create">
+            </form>
+        {% endif %}
         <h4><u>Nama docter: {{docter.name}}</u></h4>
         <div>
             {% if all_appointments|length > 0 %}
