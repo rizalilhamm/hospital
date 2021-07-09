@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div style="text-align: center;">
+    <div style="text-align: left;">
         {% if session['user_admin'] %}
             <p>Create new Appointment</p>
             <form action="{{ url_for('admin.appointments', docter_id=docter.docter_id) }}" method="POST">
@@ -9,13 +9,14 @@
                 <input style="margin-top: 5px;" type="submit" value="Create">
             </form>
         {% endif %}
-        <h4><u>Nama docter: {{docter.name}}</u></h4>
+        <h3><u>{{docter.name}}</u></h3>
         <div>
             {% if all_appointments|length > 0 %}
             <ol>
                 {% for appointment in all_appointments %}
                     <li>{{ appointment }} <br>
-                        desc: {{ appointment.appointment_desc }}
+                        Deskripsi: {{ appointment.appointment_desc }}
+                        <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}">Lebih banyak</a>
                     </li>
                 {% endfor %}
             </ol>

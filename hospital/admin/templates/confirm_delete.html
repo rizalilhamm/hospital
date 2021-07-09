@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: left;">        
+        <form action="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation" method="POST">
+            <input class="btn-danger" type="submit" value="Delete">
+        </form>
+        <p><a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}">Cancel</a></p>
+    </div>
+{% endblock %}
