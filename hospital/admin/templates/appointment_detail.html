@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: left;">
+        <p>
+            Appointment: {{ appointment }}
+        </p>
+        <p>
+            Description: {{appointment.appointment_desc}}
+        </p>
+        <p>Pasien Antri: {{appointment.user_id}}</p>
+        <p>Kembali ke daftar <a href="/docters/{{docter.docter_id}}">Docter Appointment</a></p>
+    </div>
+    <div>
+        <p>
+           <a href="/docters/{{docter.docter_id}}">Update</a>
+           <a class="btn-danger" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation">Delete</a>
+        </p>
+    </div>
+{% endblock %}
