@@ -18,16 +18,17 @@
 <body class="container">
     <ul>
         <li class="headerlink"><a style="color: black;" href="/">RS. Umum</a></li>
-        <li class="headerlink" id="authlink"><a href="/contact-us">Contact us</a></li>
-        <li class="headerlink" id="authlink"><a href="/about-us">About us</a></li>
+        <li class="headerlink"><a href="/docters">Semua Docter</a></li>
+        <li class="headerlink"><a href="/contact-us">Contact us</a></li>
+        <li class="headerlink"><a href="/about-us">About us</a></li>
         {% if session['logged_in'] == none %}
             <li class="headerlink" id="authlink"><a href="/login">Login</a></li>
-            <li class="headerlink" id="authlink"><a href="/patient/register">Patient Register</a></li>
-            <li class="headerlink" id="authlink"><a href="/admin/register"> Admin Register</a></li>
-
+            <li class="headerlink"><a href="/patient/register">Patient Register</a></li>
+            <li class="headerlink"><a href="/admin/register"> Admin Register</a></li>
         {% else %}
-            <li class="headerlink" id="authlink"><a href="/logout">Logout</a></li>
+            <li class="headerlink" style="margin-left: 650px;"><a href="/logout">Logout</a></li>
         {% endif %}
+        <hr style="margin-left: auto;">
     <ul>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
