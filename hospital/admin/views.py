@@ -14,11 +14,13 @@ admin_bp = Blueprint(
 
 from hospital.models import Docter, Appointment
 
+
 @admin_bp.route('/docters/', methods=['POST', 'GET'])
 def docters():
     """ Show all docters and provide a link to the available appointments """
     docters = Docter.query.all()
     return render_template('all_docters.html', docters=docters)
+
 
 @admin_bp.route('/docters/<int:docter_id>/', methods=['GET', 'POST'])
 def appointments(docter_id):
@@ -52,10 +54,31 @@ def appointments(docter_id):
 
 @admin_bp.route('/docters/<int:docter_id>/<string:appointment_title>', methods=['GET', 'PUT'])
 def appointment(docter_id, appointment_title):
-    # Class.query.join(User.classes).filter(User.email==current_user.email).filter_by(class_id=class_id).first()
-    # appointment = Appointment.query.filter_by(appointment_title=appointment_title).first()
+    """Function will show us the Appointment detail"""
     appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
     return render_template('appointment_detail.html', title='Appointment', appointment=appointment, docter=Docter.query.get(docter_id))
+
+
+@admin_bp.route('/docters/<int:docter_id>/<string:appointment_title>/update_detail', methods=['GET', 'POST'])
+def update_appointment(docter_id, appointment_title):
+    """Update the Appointment Detail"""
+    docter = Docter.query.get(docter_id)
+    appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
+    if request.method == 'POST':
+        validate_diff = (appointment.appointment_title != request.form['appointment_title']) or (appointment.appointment_desc != request.form['appointment_desc'])
+        if validate_diff:
+            appointment.appointment_title = request.form['appointment_title']
+            appointment.appointment_desc = request.form['appointment_desc']
+        
+            db.session.commit()
+            flash('Perubahan berhasil disimpan!')
+            return redirect(url_for('admin.appointment', docter_id=docter.docter_id, appointment_title=appointment.appointment_title))
+        else:
+            flash('Tidak ada perubahan yang dilakukan!')
+            return redirect(url_for('admin.appointment', docter_id=docter.docter_id, appointment_title=appointment.appointment_title))
+
+    return render_template('update_appointment.html', docter=docter, appointment=appointment)
+
 
 @admin_bp.route('/docters/<int:docter_id>/<int:appointment_id>/confirmation', methods=['GET', 'POST'])
 def confirm_delete(docter_id, appointment_id):
