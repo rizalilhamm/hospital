@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, session
 from flask.helpers import url_for
 from werkzeug.utils import redirect
 
@@ -11,21 +11,25 @@ admin_bp = Blueprint('admin', __name__,
 
 from hospital.models import Docter, Appointment
 
-@admin_bp.route('/docters', methods=['POST', 'GET'])
+@admin_bp.route('/docters/', methods=['POST', 'GET'])
 def docters():
     """ Show all docters and provide a link to the available appointments """
     docters = Docter.query.all()
     return render_template('all_docters.html', docters=docters)
 
-@admin_bp.route('/docters/<int:docter_id>', methods=['GET', 'POST'])
+@admin_bp.route('/docters/<int:docter_id>/', methods=['GET', 'POST'])
 def appointments(docter_id):
+    """Show all partocular docter appointments from
+    param:
+        docter_id(int)
+    return:
+        all docter appoinment"""
     docter = Docter.query.get(docter_id)
     all_appointments = Appointment.query.filter_by(docter_id=docter_id).all()
     
-    if request.method == 'POST':
+    if request.method == 'POST' and session['user_admin']:
         appointment_title = request.form['appointment_title']
         appointment_desc = request.form['appointment_desc']
-        # appointment_desc = None
         arguments = all([appointment_title, appointment_desc])
         if arguments:
             new_appointment = Appointment(
@@ -40,4 +44,4 @@ def appointments(docter_id):
         flash('Semua appointment field wajib diisi')
         return redirect(url_for('admin.appointments', docter_id=docter.docter_id))
 
-    return render_template('docter_appointments.html', docter=docter, all_appointments=all_appointments)
+    return render_template('docter_appointments.html', title='All Docters', docter=docter, all_appointments=all_appointments)
