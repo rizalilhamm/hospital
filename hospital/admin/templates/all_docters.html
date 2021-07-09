@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: center">
+        <h3><u>Available Docters</u></h3>
+        {% if docters|length > 0 %}
+            <ol>
+                {% for docter in docters %}
+                    <li>{{ docter }} | <a href="/docters/{{docter.docter_id}}">See appointment</a></li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>Belum ada docter yang terdaftar!</p>
+        {% endif %}
+    </div>
+{% endblock %}

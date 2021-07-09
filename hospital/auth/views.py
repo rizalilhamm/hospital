@@ -3,11 +3,13 @@ from flask import (
     Blueprint, request, redirect, url_for, flash, render_template, g, session
 )
 
-auth_dp = Blueprint('auth', __name__,
-    template_folder='templates', static_folder='static')
+auth_bp = Blueprint('auth', __name__,
+    template_folder='templates', static_folder='static'
+    )
 
 from hospital import db, bcrypt
 from hospital.models import User
+
 
 def register(admin):
     if request.method == 'POST':
@@ -40,21 +42,25 @@ def register(admin):
         flash('Pendaftaran Berhasil sebagai {}'.format(user_rule))
         return redirect(url_for('auth.admin_register'))
 
-@auth_dp.route('/admin/register', methods=['POST', 'GET'])
+@auth_bp.route('/admin/register', methods=['POST', 'GET'])
 def admin_register():
     register(admin=True)
     return render_template('admin_register.html', title='Admin Register', user_type='ADMIN')
 
-@auth_dp.route('/patient/register', methods=['POST', 'GET'])
+@auth_bp.route('/patient/register', methods=['POST', 'GET'])
 def patient_register():
     register(admin=False)
     return render_template('patient_register.html')
 
-@auth_dp.route('/login', methods=['POST', 'GET'])
+@auth_bp.route('/login', methods=['POST', 'GET'])
 def login():
     if session.get('logged_in'):
-        flash('Kamu masih login')
-        return redirect(url_for('auth.home'))
+        if session.get('user_rule'):
+            flash('Kamu masih login sebagai Admin')
+            return redirect(url_for('admin.docters'))
+        else:
+            flash('Kamu masih login sebagai Patient')
+            
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -63,8 +69,9 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, password):
                 session['logged_in'] = True
+                session['user_rule'] = True
                 flash('Kamu berhasil login')
-                return 'Ini halaman Home'
+                return redirect(url_for('admin.docters'))
             flash('Password anda salah')
             return redirect(url_for('auth.login'))
         flash('Email tidak ditemukan')
@@ -72,9 +79,9 @@ def login():
 
     return render_template('login.html')
 
-@auth_dp.route('/')
-def home():
-    if not session.get('logged_in'):
-        flash('Kamu harus login dulu')
-        return redirect(url_for('auth.login'))
-    return 'Halaman Home'
+@auth_bp.route('/logout')
+def logout():
+    session['logged_in'] = None
+    session['user_rule'] = None
+    flash('Kamu sudah Logout!')
+    return redirect(url_for('auth.login'))

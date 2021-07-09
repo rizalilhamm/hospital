@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <u><h3>
-        {% block type %}
-            {% if user_type %}
-                {{user_type}} REGISTRASION
-            {% else %}
-                PATIENT REGISTRASION</u></h3>
-            {% endif %}            
-        {% endblock %}
-    </h3></u>
-    <form action="{{ url_for('auth.patient_register') }}" method="POST">
-        <label for="username">Firstname: </label> <br>
-        <input type="text" id="firstname" name="firstname"> <br>
-        <label for="username">Lastname: </label> <br>
-        <input type="text" id="lastname" name="lastname"><br>
-        <label for="age">Age: </label><br>
-        <input type="text" id="age" name="age"><br>
-        <label for="email">Email: </label><br>
-        <input type="email" id="email" name="email"> <br>
-        <label for="Username">Username: </label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Password: </label> <br>
-        <input type="password" id="password" name="password"> <br>
-        <label for="confirm_password">Repeat Password: </label> <br>
-        <input type="password" id="confirm_password" name="confirm_password"> <br>
-        <input style="margin: 15px; margin-left: 50px;" type="submit" value="Register">
-    </form>
-    <small>I have an account! <a href="/login">Login</a></small>
+    <div style="text-align: center;">
+        <u><h3>
+            {% block type %}
+                {% if user_type %}
+                    {{user_type}} REGISTRASION
+                {% else %}
+                    PATIENT REGISTRASION</u></h3>
+                {% endif %}            
+            {% endblock %}
+        </h3></u>
+        <form action="{{ url_for('auth.patient_register') }}" method="POST">
+            <label for="username">Firstname: </label> <br>
+            <input type="text" id="firstname" name="firstname"> <br>
+            <label for="username">Lastname: </label> <br>
+            <input type="text" id="lastname" name="lastname"><br>
+            <label for="age">Age: </label><br>
+            <input type="text" id="age" name="age"><br>
+            <label for="email">Email: </label><br>
+            <input type="email" id="email" name="email"> <br>
+            <label for="Username">Username: </label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password: </label> <br>
+            <input type="password" id="password" name="password"> <br>
+            <label for="confirm_password">Repeat Password: </label> <br>
+            <input type="password" id="confirm_password" name="confirm_password"> <br>
+            <input style="margin: 15px; margin-left: 50px;" type="submit" value="Register">
+        </form>
+        <small>I have an account! <a href="/login">Login</a></small>
+    </div>
 {% endblock %}

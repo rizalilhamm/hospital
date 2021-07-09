@@ -1,0 +1,14 @@
+.container {
+    margin: auto;
+    width: 100%;
+    border: 3px solid none;
+    padding: 10px;
+}
+.headerlink {
+    display: inline-block;
+    margin: 0 8px;
+}
+#authlink {
+    text-align: right;
+    padding-right: 0%;
+    }
