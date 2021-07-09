@@ -9,14 +9,16 @@ class Appointment(db.Model):
     appointment_id = db.Column(db.Integer, primary_key=True)
     appointment_title = db.Column(db.String(100), unique=True, nullable=False)
     appointment_desc = db.Column(db.Text, nullable=False)
+    max_patient = db.Column(db.Integer, default=10)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     docter_id = db.Column(db.Integer, db.ForeignKey('docters.docter_id'))
     
 
-    def __init__(self, appointment_title, appointment_desc, docter_id):
+    def __init__(self, appointment_title, appointment_desc, docter_id, max_patient):
         self.appointment_title = appointment_title
         self.appointment_desc = appointment_desc
         self.docter_id = docter_id
+        self.max_patient = max_patient
 
     def __repr__(self):
         return self.appointment_title

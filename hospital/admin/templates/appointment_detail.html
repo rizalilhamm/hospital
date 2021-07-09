@@ -2,12 +2,17 @@
 {% block content %}
     <div style="text-align: left;">
         <p>
-            Appointment: {{ appointment }}
+            Appointment     : {{ appointment }}
         </p>
         <p>
-            Description: {{appointment.appointment_desc}}
+            Description     : {{appointment.appointment_desc}}
         </p>
-        <p>Pasien Antri: {{appointment.user_id}}</p>
+        <p>
+            Pasien Maksimal : {{appointment.max_patient}}
+        </p>
+        <p>
+            Pasien Antri    : {{appointment.user_id}}
+        </p>
         <p>Kembali ke daftar <a href="/docters/{{docter.docter_id}}">Docter Appointment</a></p>
     </div>
     <div>
