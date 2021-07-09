@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: center;">
+        <p>Create new Appointment</p>
+        <form action="{{ url_for('admin.appointments', docter_id=docter.docter_id) }}" method="POST">
+            <input type="text" name="appointment_title" placeholder="Appointment Title"> <br>
+            <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Appointment Description"></textarea><br>
+            <input style="margin-top: 5px;" type="submit" value="Create">
+        </form>
+        <h4><u>Nama docter: {{docter.name}}</u></h4>
+        <div>
+            {% if all_appointments|length > 0 %}
+            <ol>
+                {% for appointment in all_appointments %}
+                    <li>{{ appointment }} <br>
+                        desc: {{ appointment.appointment_desc }}
+                    </li>
+                {% endfor %}
+            </ol>
+            {% else %}
+                <p>Tidak ada appointment yang tersedia</p>
+            {% endif %}
+        </div>
+        <p>Kembali ke halaman docter <a href="/docters">Back</a></p>
+    </div>
+{% endblock %}
