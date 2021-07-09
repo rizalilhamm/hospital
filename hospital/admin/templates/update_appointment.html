@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: left;">
+        <p>Update Appointment</p>
+        <form action="{{ url_for('admin.update_appointment', docter_id=docter.docter_id, appointment_title=appointment.appointment_title) }}" method="POST">
+            <input type="text" name="appointment_title" placeholder="Appointment Title" value="{{ appointment.appointment_title }}"> <br>
+            <textarea style="margin-top: 5px;" name="appointment_desc" cols="30" rows="5" placeholder="Appointment Description">{{ appointment.appointment_desc }}</textarea><br>
+            <input style="margin-top: 5px;" type="submit" value="Update">
+        </form>
+        <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}">Cancel</a>
+    </div>
+{% endblock %}
