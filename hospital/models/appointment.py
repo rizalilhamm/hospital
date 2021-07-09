@@ -1,5 +1,5 @@
 from functools import partialmethod
-from app import app, db
+from hospital import db
 
 class Appointment(db.Model):
     __tablename__ = 'appointments'

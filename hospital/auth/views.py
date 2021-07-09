@@ -1,10 +1,13 @@
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+
+from flask import (
+    Blueprint, request, redirect, url_for, flash, render_template, g, session
+)
 
 auth_dp = Blueprint('auth', __name__,
     template_folder='templates', static_folder='static')
 
-from app import db, bcrypt
-from models import User
+from hospital import db, bcrypt
+from hospital.models import User
 
 def register(admin):
     if request.method == 'POST':
@@ -49,6 +52,9 @@ def patient_register():
 
 @auth_dp.route('/login', methods=['POST', 'GET'])
 def login():
+    if session.get('logged_in'):
+        flash('Kamu masih login')
+        return redirect(url_for('auth.home'))
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -56,6 +62,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if bcrypt.check_password_hash(user.password, password):
+                session['logged_in'] = True
                 flash('Kamu berhasil login')
                 return 'Ini halaman Home'
             flash('Password anda salah')
@@ -64,3 +71,10 @@ def login():
         return redirect(url_for('auth.login'))
 
     return render_template('login.html')
+
+@auth_dp.route('/')
+def home():
+    if not session.get('logged_in'):
+        flash('Kamu harus login dulu')
+        return redirect(url_for('auth.login'))
+    return 'Halaman Home'
