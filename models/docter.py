@@ -11,4 +11,4 @@ class Docter(db.Model):
         self.name = name
     
     def __repr__(self):
-        return "<Docter name: {}>".format(self.name)
+        return self.name
