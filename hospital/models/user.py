@@ -13,7 +13,6 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(200))
     admin = db.Column(db.Boolean, default=False)
-    appointments = db.relationship('Appointment', backref='user')
 
     def __init__(self, firstname, lastname, age, email, password, username, admin=False):
         self.firstname = firstname
