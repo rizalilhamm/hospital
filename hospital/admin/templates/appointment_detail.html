@@ -6,17 +6,25 @@
             {{ appointment }}
         </p>
         <p class="appointment-detail">
-            <strong>Description</strong> <br>
+            <strong style="margin-bottom: 5px;">Description</strong> <br>
             {{appointment.appointment_desc}}
         </p>
         <p>
             <strong>Pasien Maksimal</strong> <br>
             {{appointment.max_patient}}
         </p>
-        {% if not session['user_rule'] %}
+        {% if not session['user_admin'] %}
             <p>
             <b>Nomor antrian anda</b> <br> 
             {{appointment.user_id}}
+            </p>
+        {% else %}
+            <p>
+                <b>Patient yang mendaftar</b> <br> 
+                {% if appointment.users|length > 0 %}
+                {% else %}
+                    Tidak ada pasien mendaftar
+                {% endif %}
             </p>
         {% endif %}
         <p>Kembali ke daftar <a href="/docters/{{docter.docter_id}}">Docter Appointment</a></p>
