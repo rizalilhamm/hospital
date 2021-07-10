@@ -70,7 +70,7 @@ def login():
             if bcrypt.check_password_hash(user.password, password):
                 session['logged_in'] = True
                 session['user_admin'] = False
-                message = 'Kamu berhasil login sebgai Patient!'
+                message = 'Kamu berhasil login sebagai Patient!'
                 if user.admin:
                     session['user_admin'] = True
                     message = 'Kamu berhasil login sebagai Admin!'

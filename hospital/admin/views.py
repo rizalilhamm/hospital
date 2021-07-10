@@ -39,6 +39,9 @@ def docters():
 @admin_bp.route('/docters/<int:docter_id>/', methods=['GET', 'POST'])
 def appointments(docter_id):
     """Show all partocular docter appointments from"""
+    if not session['logged_in']:
+        flash('Login dulu untuk mengakses halaman')
+        return redirect(url_for('auth.login'))
     docter = Docter.query.get(docter_id)
     all_appointments = Appointment.query.filter_by(docter_id=docter_id).all()
     
@@ -67,6 +70,10 @@ def appointments(docter_id):
 @admin_bp.route('/docters/<int:docter_id>/<string:appointment_title>', methods=['GET', 'PUT'])
 def appointment(docter_id, appointment_title):
     """Function will show us the Appointment detail"""
+    if not session['logged_in']:
+        flash('Login dulu untuk mengakses halaman')
+        return redirect(url_for('auth.login'))
+
     appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
     return render_template('appointment_detail.html', title='Appointment', appointment=appointment, docter=Docter.query.get(docter_id))
 
