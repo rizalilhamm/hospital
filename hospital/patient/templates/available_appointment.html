@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: left;">
+    <h3><u>Appointment yang tersedia</u></h3>    
+        <ol>
+            {% for appointment in appointments %}
+                <li>
+                    {{ appointment.appointment_title }}  with <u>{{ appointment.docter_name }}</u>  | 
+                    <small>
+                        <a href="/docters/{{appointment.docter_id}}/{{appointment.appointment_title}}">More</a>
+                    </small>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}
