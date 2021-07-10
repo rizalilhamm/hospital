@@ -74,6 +74,8 @@ def login():
                 if user.admin:
                     session['user_admin'] = True
                     message = 'Kamu berhasil login sebagai Admin!'
+                
+                g.user = user.username
                 flash(message)
                 return redirect(url_for('admin.docters'))
             flash('Password anda salah')

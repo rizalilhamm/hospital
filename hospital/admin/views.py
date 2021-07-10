@@ -1,4 +1,3 @@
-from os import name
 from flask import Blueprint, render_template, request, flash, session
 from flask.helpers import url_for
 from werkzeug.utils import redirect
