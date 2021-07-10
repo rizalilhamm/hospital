@@ -35,9 +35,15 @@
            <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}/update_detail">Update</a>
            <a class="btn-danger" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation">Delete</a>
         {% elif not session['user_admin'] %}
-            <form action="">
-                <input type="button" class="btn-info" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation" value="Daftar">
-            </form>
+            {% if g.user not in appointment.patients %}
+                <form action="{{ url_for('admin.register_appointment', docter_id=docter.docter_id, appointment_title=appointment.appointment_title) }}" method="POST">
+                    <input type="submit" class="btn-info" value="Daftar">
+                </form>
+            {% else %}
+                <form action="{{ url_for('admin.register_appointment', docter_id=docter.docter_id, appointment_title=appointment_title) }}" method="POST">
+                    <input type="submit" class="btn-info" value="Cancel">
+                </form>
+            {% endif %}
         {% endif %}
         </p>
     </div>
