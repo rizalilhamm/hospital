@@ -5,18 +5,23 @@
         {% if docters|length > 0 %}
             <ol>
                 {% for docter in docters %}
-                    <li>{{ docter }} | <a href="/docters/{{docter.docter_id}}">Appointment</a></li>
+                    <li>
+                        {{ docter }} |
+                        <small><a href="/docters/{{docter.docter_id}}">Appointment</a></small>
+                    </li>
                 {% endfor %}
             </ol>
         {% else %}
             <p>Belum ada docter yang terdaftar!</p>
         {% endif %}
         <br>
-        <b>Tambahkan dokter baru</b>
-        <form action="{{ url_for('admin.docters') }}" method="POST">
-            <label for="docter_name">Name: </label>
-            <input type="text" name="docter_name">
-            <input type="submit" value="Tambahkan">
-        </form>
+        {% if session['user_rule'] %}
+            <b>Tambahkan dokter baru</b>
+            <form action="{{ url_for('admin.docters') }}" method="POST">
+                <label for="docter_name">Name: </label>
+                <input type="text" name="docter_name">
+                <input type="submit" value="Tambahkan">
+            </form>
+        {% endif %}
     </div>
 {% endblock %}

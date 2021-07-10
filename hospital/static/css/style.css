@@ -20,3 +20,10 @@
 .btn-danger {
     color: red;
 }
+.btn-info {
+    color: black;
+}
+
+.appointment-detail {
+    margin-bottom: -10px;
+}
