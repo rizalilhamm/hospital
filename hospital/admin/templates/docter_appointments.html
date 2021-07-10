@@ -17,7 +17,9 @@
                 {% for appointment in all_appointments %}
                     <li>{{ appointment }} <br>
                         Deskripsi: {{ appointment.appointment_desc }}
-                        <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}">Lebih banyak</a>
+                        <small>
+                            <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}">More</a>
+                        </small>
                     </li>
                 {% endfor %}
             </ol>

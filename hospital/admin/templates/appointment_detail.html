@@ -2,23 +2,35 @@
 {% block content %}
     <div style="text-align: left;">
         <p>
-            Appointment     : {{ appointment }}
+            <strong>Appointment title</strong> <br>
+            {{ appointment }}
+        </p>
+        <p class="appointment-detail">
+            <strong>Description</strong> <br>
+            {{appointment.appointment_desc}}
         </p>
         <p>
-            Description     : {{appointment.appointment_desc}}
+            <strong>Pasien Maksimal</strong> <br>
+            {{appointment.max_patient}}
         </p>
-        <p>
-            Pasien Maksimal : {{appointment.max_patient}}
-        </p>
-        <p>
-            Pasien Antri    : {{appointment.user_id}}
-        </p>
+        {% if not session['user_rule'] %}
+            <p>
+            <b>Nomor antrian anda</b> <br> 
+            {{appointment.user_id}}
+            </p>
+        {% endif %}
         <p>Kembali ke daftar <a href="/docters/{{docter.docter_id}}">Docter Appointment</a></p>
     </div>
     <div>
         <p>
+        {% if session['user_rule'] %}
            <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}/update_detail">Update</a>
            <a class="btn-danger" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation">Delete</a>
+        {% elif not session['user_rule'] %}
+            <form action="">
+                <input type="button" class="btn-info" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation" value="Daftar">
+            </form>
+        {% endif %}
         </p>
     </div>
 {% endblock %}
