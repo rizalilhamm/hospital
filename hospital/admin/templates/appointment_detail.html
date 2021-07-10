@@ -23,10 +23,10 @@
     </div>
     <div>
         <p>
-        {% if session['user_rule'] %}
+        {% if session['user_admin'] %}
            <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}/update_detail">Update</a>
            <a class="btn-danger" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation">Delete</a>
-        {% elif not session['user_rule'] %}
+        {% elif not session['user_admin'] %}
             <form action="">
                 <input type="button" class="btn-info" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation" value="Daftar">
             </form>
