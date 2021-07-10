@@ -56,10 +56,10 @@ def patient_register():
 def login():
     if session.get('logged_in'):
         if session.get('user_rule'):
-            flash('Kamu masih login sebagai Admin')
+            flash('Kamu masih login sebagai Admin!')
             return redirect(url_for('admin.docters'))
         else:
-            flash('Kamu masih login sebagai Patient')
+            flash('Kamu masih login sebagai Patient!')
             
     if request.method == 'POST':
         email = request.form['email']
