@@ -15,7 +15,7 @@
             <p>Belum ada docter yang terdaftar!</p>
         {% endif %}
         <br>
-        {% if session['user_rule'] %}
+        {% if session['user_admin'] %}
             <b>Tambahkan dokter baru</b>
             <form action="{{ url_for('admin.docters') }}" method="POST">
                 <label for="docter_name">Name: </label>
