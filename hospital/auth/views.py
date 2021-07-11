@@ -2,7 +2,7 @@
 from flask import (
     Blueprint, request, redirect, url_for, flash, render_template, g, session
 )
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 auth_bp = Blueprint('auth', __name__,
     template_folder='templates', static_folder='static'
@@ -90,5 +90,6 @@ def login():
 def logout():
     session['logged_in'] = None
     session['user_rule'] = None
+    logout_user()
     flash('Kamu sudah Logout!')
     return redirect(url_for('auth.login'))
