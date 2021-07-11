@@ -78,7 +78,16 @@ def appointment(docter_id, appointment_title):
     if request.method == 'POST':
         appointment_registration(docter_id, appointment.appointment_title)
 
-    return render_template('appointment_detail.html', title='Appointment', appointment=appointment, docter=Docter.query.get(docter_id))
+    queue_number = None
+    if current_user in appointment.patients:
+        queue_number = appointment.patients.index(current_user) + 1
+
+    return render_template('appointment_detail.html',
+            title='Appointment',
+            appointment=appointment,
+            docter=Docter.query.get(docter_id),
+            queue_number=queue_number
+            )
 
 
 @admin_bp.route('/docters/<int:docter_id>/<string:appointment_title>/update_detail', methods=['GET', 'POST'])
