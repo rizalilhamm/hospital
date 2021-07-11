@@ -5,8 +5,8 @@
             <strong><u>Judul Appointment</u></strong> <br><br>
             {{ appointment }}
         </p>
-        <p class="appointment-detail">
-            <strong style="margin-bottom: 5px;">Description</strong> <br>
+        <p>
+            <strong style="margin-bottom: 5px;">Description</strong> <br><br>
             {{appointment.appointment_desc}}
         </p>
         <p>
@@ -20,7 +20,7 @@
         {% if not session['user_admin'] %}
             <p>
             {% if current_user in appointment.patients %}
-                <b>Nomor antrian anda</b> <br> 
+                <b>Nomor antrian anda</b><br> 
                 {{ appointment.patients.index(current_user) + 1 }}
             {% else %}
                 <small style="color: blue;"><p>Anda tidak terdaftar</p></small>
