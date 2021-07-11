@@ -3,7 +3,6 @@ from flask import (
     )
 from flask_login import current_user
 
-
 from hospital import db
 
 
@@ -12,7 +11,7 @@ patient_bp = Blueprint(
     template_folder='templates',
     static_folder='static')
 
-from hospital.models import Docter, Appointment
+from hospital.models import User, Docter, Appointment
 
 @patient_bp.route('/appointments')
 def available_appointment():
@@ -41,3 +40,7 @@ def appointment_registration(docter_id, appointment_title):
     flash(message)
     return redirect((url_for('admin.appointment', docter_id=docter_id, appointment_title=appointment_title)))
 
+@patient_bp.route('/my_appointment/')
+def patient_appointment():
+    appointments = Appointment.query.join(User.patients).filter(User.email==current_user.email).all()
+    return render_template('patient_appointments.html', title='Apppointment ku', appointments=appointments)
