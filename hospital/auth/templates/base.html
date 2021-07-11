@@ -17,7 +17,7 @@
 </head>
 <body class="container">
     <ul>
-        <li class="headerlink"><a style="color: black;" href="/">RS. Umum</a></li>
+        <li class="headerlink"><a style="color: black;" href="/">RS. UMUM</a></li>
         <li class="headerlink"><a href="/docters">Semua Dokter</a></li>
         <li class="headerlink"><a href="/appointments">Janji tersedia</a></li>
         <li class="headerlink"><a href="/contact-us">Contact us</a></li>
@@ -26,9 +26,13 @@
             <li class="headerlink" style="margin-left: 200px;"><a href="/login">Login</a></li>
             <li class="headerlink"><a href="/patient/register">Patient Register</a></li>
             <li class="headerlink"><a href="/admin/register"> Admin Register</a></li>
-        {% else %}
-            <li class="headerlink" style="margin-left: 350px;"><a href="/my_appointment">My Appointment</a></li>
-            <li class="headerlink"><a href="/logout">Logout</a></li>
+        {% elif current_user %}
+            {% if not session['user_admin'] %}
+                <li class="headerlink" style="margin-left: 200px;"><a href="/my_appointment">My Appointment</a></li>
+                <li class="headerlink" style="margin-left: 200px;"><a href="/logout">Logout</a></li>
+            {% else %}
+                <li class="headerlink" style="margin-left: 500px;"><a href="/logout">Logout</a></li>
+            {% endif %}
         {% endif %}
         <hr style="margin-right: 40px;">
     <ul>
