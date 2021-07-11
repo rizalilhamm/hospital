@@ -17,7 +17,13 @@
 </head>
 <body class="container">
     <ul>
-        <li class="headerlink"><a style="color: black;" href="/">RS. UMUM</a></li>
+        <li class="headerlink">
+            {% if session['user_admin'] %}
+                <a style="color: black;" href="/">RS. ADMIN</a>
+            {% else %}
+                <a style="color: black;" href="/">RS. UMUM</a>
+            {% endif %}
+        </li>
         <li class="headerlink"><a href="/docters">Semua Dokter</a></li>
         <li class="headerlink"><a href="/appointments">Janji tersedia</a></li>
         <li class="headerlink"><a href="/contact-us">Contact us</a></li>
