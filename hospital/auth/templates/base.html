@@ -28,8 +28,8 @@
             <li class="headerlink"><a href="/admin/register"> Admin Register</a></li>
         {% elif current_user %}
             {% if not session['user_admin'] %}
-                <li class="headerlink" style="margin-left: 200px;"><a href="/my_appointment">My Appointment</a></li>
-                <li class="headerlink" style="margin-left: 200px;"><a href="/logout">Logout</a></li>
+                <li class="headerlink" style="margin-left: 350px;"><a href="/my_appointment">My Appointment</a></li>
+                <li class="headerlink"><a href="/logout">Logout</a></li>
             {% else %}
                 <li class="headerlink" style="margin-left: 500px;"><a href="/logout">Logout</a></li>
             {% endif %}
