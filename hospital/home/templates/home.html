@@ -13,11 +13,11 @@
         Cukup Lakukan disini dan dapatkan jadwal janji anda! 
     </P>
     {% if session['logged_in'] == none %}
-        <p>Silahkan login untuk masuk ke akun anda<a href="/login"> Login</a> <br>
-        Atau klik disini untuk mulai bergabung <a href="/patient/register"> Patient Register</a> <br>
-        <p style="color: red;">Admin daftar disini <a href="/admin/register"> Admin Register</a></p></p>
+        <p>Silahkan login untuk masuk ke akun anda <a href="/login">Login</a> <br>
+        Atau klik disini untuk mulai bergabung <a href="/patient/register">Patient Register</a> <br>
+        <p style="color: red;">Admin daftar disini <a href="/admin/register">Admin Register</a></p></p>
     {% else %}
-        <p>Check dokter yang tersedia<a href="/docters"> disini</a></p>
+        <p>Check dokter yang tersedia <a href="/docters">disini</a></p>
     {% endif %}
 </div>
     
