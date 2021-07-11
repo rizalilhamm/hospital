@@ -15,15 +15,19 @@
         </p>
         {% if not session['user_admin'] %}
             <p>
-            <b>Nomor antrian anda</b> <br> 
-            {{appointment.user_id}}
+            {% if current_user in appointment.patients %}
+                <b>Nomor antrian anda</b> <br> 
+                {{ appointment.patients|length }}
+            {% else %}
+                <small style="color: blue;"><p>Anda tidak terdaftar</p></small>
+            {% endif %}
             </p>
         {% else %}
             <p>
                 <b>Patient yang mendaftar</b> <br> 
                 {% if appointment.users|length > 0 %}
                 {% else %}
-                    Tidak ada pasien mendaftar
+                    <small>Anda tidak terdaftar</small>
                 {% endif %}
             </p>
         {% endif %}
@@ -35,15 +39,18 @@
            <a href="/docters/{{docter.docter_id}}/{{appointment.appointment_title}}/update_detail">Update</a>
            <a class="btn-danger" href="/docters/{{docter.docter_id}}/{{appointment.appointment_id}}/confirmation">Delete</a>
         {% elif not session['user_admin'] %}
-            {% if g.user not in appointment.patients %}
-                <form action="{{ url_for('admin.register_appointment', docter_id=docter.docter_id, appointment_title=appointment.appointment_title) }}" method="POST">
+            <form action="{{ url_for('patient.appointment_registration', docter_id=docter.docter_id, appointment_title=appointment.appointment_title) }}" method="POST">
+                {% if current_user is not in appointment.patients and appointment.max_patient != appointment.patients|length %}
                     <input type="submit" class="btn-info" value="Daftar">
-                </form>
-            {% else %}
-                <form action="{{ url_for('admin.register_appointment', docter_id=docter.docter_id, appointment_title=appointment_title) }}" method="POST">
+                {% elif current_user in appointment.patients %}
+                    {% if appointment.max_patient == appointment.patients|length %}
+                        <small><p>Sudah penuh</p></small>
+                    {% endif %}
                     <input type="submit" class="btn-info" value="Cancel">
-                </form>
-            {% endif %}
+                {% elif current_user not in appointment.patients and appointment.max_patient == appointment.patients|length %}
+                    <small><p>Sedang Penuh </p></small>
+                {% endif %}
+            </form>
         {% endif %}
         </p>
     </div>
