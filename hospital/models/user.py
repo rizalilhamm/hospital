@@ -1,11 +1,12 @@
 import datetime
 import jwt
+from flask_login import UserMixin
 
 from hospital import hospital, db, bcrypt
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(80), nullable=False)
     lastname = db.Column(db.String(80), nullable=False)
     age = db.Column(db.Integer)
