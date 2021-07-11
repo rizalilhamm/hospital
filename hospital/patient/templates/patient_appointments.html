@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: left">
+        <h3><u>Appointment terdaftar</u></h3>
+        {% if appointments|length > 0 %}
+            <ol>
+                {% for appointment in appointments %}
+                    <li>
+                        {{ appointment }} | 
+                        <small>
+                            <a href="/docters/{{appointment.docter_id}}/{{appointment.appointment_title}}">Detail</a>
+                        </small>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>anda tidak memiliki appointment terdaftar!</p>
+        {% endif %}
+        <br>
+    </div>
+{% endblock %}
