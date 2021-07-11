@@ -1,7 +1,3 @@
-from enum import unique
-from functools import partialmethod
-
-from sqlalchemy.sql.operators import nullslast_op
 from hospital import db
 
 
@@ -19,7 +15,7 @@ class Appointment(db.Model):
     appointment_desc = db.Column(db.Text, nullable=False)
     max_patient = db.Column(db.Integer, default=10)
     docter_id = db.Column(db.Integer, db.ForeignKey('docters.docter_id'))
-    patients = db.relationship('User', secondary=patient_identifier)
+    patients = db.relationship('User', secondary=patient_identifier, backref=db.backref('patients', lazy='dynamic'))
     
 
     def __init__(self, appointment_title, appointment_desc, docter_id, max_patient):
