@@ -25,9 +25,14 @@
         {% else %}
             <p>
                 <b>Patient yang mendaftar</b> <br> 
-                {% if appointment.users|length > 0 %}
+                {% if appointment.patients|length > 0 %}
+                    <ol>
+                        {% for patient in appointment.patients %}
+                            <li>{{patient.username}}</li>
+                        {% endfor %}
+                    </ol>
                 {% else %}
-                    <small>Anda tidak terdaftar</small>
+                    <small>Tidak ada patient terdaftar</small>
                 {% endif %}
             </p>
         {% endif %}
