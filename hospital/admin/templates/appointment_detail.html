@@ -2,7 +2,7 @@
 {% block content %}
     <div style="text-align: left;">
         <p>
-            <strong>Appointment title</strong> <br>
+            <strong><u>Judul Appointment</u></strong> <br><br>
             {{ appointment }}
         </p>
         <p class="appointment-detail">
@@ -10,14 +10,18 @@
             {{appointment.appointment_desc}}
         </p>
         <p>
-            <strong>Pasien Maksimal</strong> <br>
+            <strong>Pasien Maksimal</strong> <br><br>
             {{appointment.max_patient}}
+        </p>
+        <p>
+            <strong>Pendaftar saat ini</strong> <br><br>
+            {{appointment.patients|length}}
         </p>
         {% if not session['user_admin'] %}
             <p>
             {% if current_user in appointment.patients %}
                 <b>Nomor antrian anda</b> <br> 
-                {{ appointment.patients|length }}
+                {{ appointment.patients.index(current_user) + 1 }}
             {% else %}
                 <small style="color: blue;"><p>Anda tidak terdaftar</p></small>
             {% endif %}
