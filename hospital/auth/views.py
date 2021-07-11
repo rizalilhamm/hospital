@@ -2,6 +2,7 @@
 from flask import (
     Blueprint, request, redirect, url_for, flash, render_template, g, session
 )
+from flask_login import login_user
 
 auth_bp = Blueprint('auth', __name__,
     template_folder='templates', static_folder='static'
@@ -40,7 +41,7 @@ def register(admin):
         if admin:
             user_rule = 'Admin'
         flash('Pendaftaran Berhasil sebagai {}'.format(user_rule))
-        return redirect(url_for('auth.admin_register'))
+        return redirect(url_for('auth.login'))
 
 @auth_bp.route('/admin/register/', methods=['POST', 'GET'])
 def admin_register():
@@ -75,7 +76,7 @@ def login():
                     session['user_admin'] = True
                     message = 'Kamu berhasil login sebagai Admin!'
                 
-                g.user = user.username
+                login_user(user)
                 flash(message)
                 return redirect(url_for('admin.docters'))
             flash('Password anda salah')

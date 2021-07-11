@@ -8,7 +8,7 @@ from hospital import db
 patient_identifier = db.Table(
     'patient_identifier',
     db.Column('appointment_id', db.Integer, db.ForeignKey('appointments.appointment_id')),
-    db.Column('patient_id', db.Integer, db.ForeignKey('users.user_id'))
+    db.Column('patient_id', db.Integer, db.ForeignKey('users.id'))
 )
 
 
