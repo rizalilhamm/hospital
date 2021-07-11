@@ -1,10 +1,11 @@
-from flask import Blueprint, render_template, request, flash, session
+from flask import Blueprint, render_template, request, flash, session, g
 from flask.helpers import url_for
 from werkzeug.utils import redirect
+from flask_login import current_user
 
 from hospital import db
-from hospital.models import Docter, Appointment
-
+from hospital.models import Docter, Appointment, User
+from hospital.patient.views import appointment_registration
 
 admin_bp = Blueprint(
     'admin', __name__,
@@ -72,8 +73,11 @@ def appointment(docter_id, appointment_title):
     if not session['logged_in']:
         flash('Login dulu untuk mengakses halaman')
         return redirect(url_for('auth.login'))
-
+    
     appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
+    if request.method == 'POST':
+        appointment_registration(docter_id, appointment.appointment_title)
+
     return render_template('appointment_detail.html', title='Appointment', appointment=appointment, docter=Docter.query.get(docter_id))
 
 
