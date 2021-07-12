@@ -6,7 +6,7 @@ This Application is used for Hospital Information that provide system for Patien
 
 ## Admin email and password
 * **Admin email** - admin@admin.com
-* **Admin email** - admin
+* **Password** - admin
 
 
 ## Built with
