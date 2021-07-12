@@ -5,8 +5,10 @@ Web Application built with Python using Flask Micro Framework
 This Application is used for Hospital Information that provide system for Patient that want to make an appointment with a docter
 
 ## Admin email and password
-* Password: admin@admin.com
-* Password: admin
+#### Password:
+admin@admin.com
+#### Password:
+admin
 
 
 ## Built with
