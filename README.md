@@ -12,7 +12,7 @@ This Application is used for Hospital Information that provide system for Patien
 ## Built with
 * [Python Programming Language](https://www.python.org/) - High-level programming language
 * [Flask Framework](https://flask.palletsprojects.com/en/2.0.x/) - Python web Framework
-* [Flask-SQLalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - ORM used to modelling Database
+* [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - ORM used to modelling Database
 * [Heroku - Python](https://devcenter.heroku.com/categories/python-support) - Cloud Deployment
 
 ### Installation
