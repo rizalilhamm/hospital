@@ -36,4 +36,4 @@ from hospital import db
 db.create_all()
 ```
 
-That now you can visit this link to use application [127.0.0.1:5000/](127.0.0.1:5000/)
+That now you can visit this link to use application ['127.0.0.1:5000/'](127.0.0.1:5000/)
