@@ -8,7 +8,9 @@ This Application is used for Hospital Information that provide system for Patien
 * **Email** - admin@admin.com
 * **Password** - admin
 
-**Note** * - You can create your own admin account through this link [Create admin account](http://127.0.0.1:5000/admin/register/)
+**Note** * You can create your own admin account through this link (localhost) [Create admin account](http://127.0.0.1:5000/admin/register/)
+
+           Or here online app (Deployed) [Create admin account](https://hospital-information.herokuapp.com/admin/register)
 
 
 ## Built with
@@ -44,3 +46,4 @@ db.create_all()
 ```
 
 That now you can visit this link to use application [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+Here link to deployed app [https://hospital-information.herokuapp.com](https://hospital-information.herokuapp.com)
