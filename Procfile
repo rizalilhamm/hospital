@@ -1,1 +1,1 @@
-web: gunicorn hospital-information:hospital
+web: gunicorn hospital:hospital
