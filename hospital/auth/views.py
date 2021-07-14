@@ -88,6 +88,8 @@ def login():
 
 @auth_bp.route('/logout')
 def logout():
+    if session['logged_in']:
+        return redirect(url_for('home.home'))
     session['logged_in'] = None
     session['user_rule'] = None
     logout_user()
