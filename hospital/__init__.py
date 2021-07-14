@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -8,6 +9,9 @@ from config import Config
 hospital = Flask(__name__)
 hospital.config.from_object(Config)
 db = SQLAlchemy(hospital)
+
+db.create_all()
+
 bcrypt = Bcrypt(hospital)
 login = LoginManager(hospital)
 
