@@ -8,6 +8,8 @@ This Application is used for Hospital Information that provide system for Patien
 * **Email** - admin@admin.com
 * **Password** - admin
 
+**Note** * - You can create your own admin account through this link [Create admin account](http://127.0.0.1:5000/admin/register/)
+
 
 ## Built with
 * [Python Programming Language](https://www.python.org/) - High-level programming language
