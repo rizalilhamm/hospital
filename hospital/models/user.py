@@ -26,6 +26,9 @@ class User(db.Model, UserMixin):
         self.username = username
         self.admin = admin
 
+    def __repr__(self) -> str:
+        return f"{self.firstname} {self.lastname}"
+
     def encode_token(self, user_id):
         """Generate the Auth token
             return: string """
