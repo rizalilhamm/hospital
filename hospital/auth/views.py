@@ -2,7 +2,7 @@
 from flask import (
     Blueprint, request, redirect, url_for, flash, render_template, g, session
 )
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 auth_bp = Blueprint('auth', __name__,
     template_folder='templates', static_folder='static'
@@ -88,10 +88,13 @@ def login():
 
 @auth_bp.route('/logout')
 def logout():
-    if session['logged_in']:
-        return redirect(url_for('home.home'))
-    session['logged_in'] = None
-    session['user_rule'] = None
-    logout_user()
-    flash('Kamu sudah Logout!')
-    return redirect(url_for('auth.login'))
+
+    if current_user.is_anonymous:
+        flash("Kamu harus login dulu")
+        return redirect(url_for('auth.login'))
+    elif current_user.is_authenticated:
+        session['logged_in'] = None
+        session['user_rule'] = None
+        logout_user()
+        flash('Kamu sudah Logout!')
+        return redirect(url_for('auth.login'))
