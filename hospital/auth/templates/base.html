@@ -28,7 +28,7 @@
         <li class="headerlink"><a href="/appointments">Janji tersedia</a></li>
         <li class="headerlink"><a href="/contact-us">Contact us</a></li>
         <li class="headerlink"><a href="/about-us">About us</a></li>
-        {% if session['logged_in'] == none %}
+        {% if not session['logged_in'] %}
             <li class="headerlink" style="margin-left: 350px;"><a href="/login">Login</a></li>
             <li class="headerlink"><a href="/patient/register">Patient Register</a></li>
         {% elif current_user %}
