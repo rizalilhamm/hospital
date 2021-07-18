@@ -2,6 +2,7 @@ from flask import (
     Blueprint, render_template, flash, url_for, redirect
     )
 from flask_login import current_user
+from sqlalchemy.orm import session
 
 from hospital import db
 
@@ -27,6 +28,9 @@ def available_appointment():
 
 @patient_bp.route('/docters/<int:docter_id>/<string:appointment_title>/appointment_registration', methods=['GET', 'POST'])
 def appointment_registration(docter_id, appointment_title):
+    if current_user.is_anonymous:
+        flash('Kamu harus login dulu')
+        return redirect(url_for('auth.login'))
     # current_appointment.patients.append(current_patient)
     appointment = Appointment.query.join(Docter.appointments).filter(Docter.docter_id==docter_id).filter_by(appointment_title=appointment_title).first()
     message = 'Appointment registered at: {}'.format(appointment)
