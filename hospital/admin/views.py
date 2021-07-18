@@ -39,7 +39,7 @@ def docters():
 @admin_bp.route('/docters/<int:docter_id>/', methods=['GET', 'POST'])
 def appointments(docter_id):
     """Show all partocular docter appointments from"""
-    if not session['logged_in']:
+    if current_user.is_anonymous:
         flash('Login dulu untuk mengakses halaman')
         return redirect(url_for('auth.login'))
     docter = Docter.query.get(docter_id)
@@ -70,7 +70,7 @@ def appointments(docter_id):
 @admin_bp.route('/docters/<int:docter_id>/<string:appointment_title>', methods=['GET', 'PUT'])
 def appointment(docter_id, appointment_title):
     """Function will show us the Appointment detail"""
-    if not session['logged_in']:
+    if current_user.is_anonymous:
         flash('Login dulu untuk mengakses halaman')
         return redirect(url_for('auth.login'))
     
